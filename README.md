@@ -1,6 +1,19 @@
-# NLW Expert React Native
+<h1 align="center">
+ 🚀 # NLW Expert React Native 🚀
+</h1>
 
-Este repositório contém o código-fonte de um aplicativo móvel desenvolvido em React Native, projetado para simplificar o processo de realização de pedidos em restaurantes e estabelecimentos similares. O aplicativo oferece uma variedade de funcionalidades, incluindo:
+<p align="center">
+  <img alt="React Native" src="https://img.shields.io/badge/ReactNative-blue">
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-blue">
+  <img alt="HTML" src="https://img.shields.io/badge/Html-red">
+  <img alt="TailwindCSS" src="https://img.shields.io/badge/TailwindCSS-blue">
+  <img alt="Zustand" src="https://img.shields.io/badge/Zustand-blue">
+  <img alt="Clsx" src="https://img.shields.io/badge/Clsx-black">
+</p>
+
+Aplicação desenvolvida durante o NLW Expert, trilha de React Native, da Rocketseat!
+
+O aplicativo foi realizado para simplificar o processo de pedidos delivery em restaurantes, estabelecimentos e similares. O aplicativo oferece uma variedade de funcionalidades, incluindo:
 
 Listagem de produtos disponíveis para pedido.
 Facilidade na realização de pedidos diretamente pelo aplicativo.
@@ -16,4 +29,7 @@ Além disso, o aplicativo possui um perfil de usuário que permite o armazenamen
     <td align="center"><img src="https://github.com/mrhugohenrique/app-food/blob/07c984fb96a0ce5feaf9192271798ee70995650b/assets/Perfil.png" width="240px"></td>
   </tr>
 </table>
+
+
+
 
