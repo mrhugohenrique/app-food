@@ -18,7 +18,7 @@ O aplicativo foi realizado para simplificar o processo de pedidos delivery em re
 Listagem de produtos disponíveis para pedido.
 Facilidade na realização de pedidos diretamente pelo aplicativo.
 Envio do pedido via WhatsApp para o estabelecimento.
-Além disso, o aplicativo possui um perfil de usuário que permite o armazenamento persistente dos dados do usuário. Isso proporciona uma experiência mais conveniente, eliminando a necessidade de inserir repetidamente as informações do usuário em cada novo pedido.
+Além disso, o aplicativo possui um perfil de usuário que permite o armazenamento persistente dos dados do usuário.
 
 <table>
   <tr>
