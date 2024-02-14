@@ -1,23 +1,22 @@
-import { useState } from "react";
 import { Text, View, ScrollView, Alert, Linking } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { ProductCartProps, useCartStore } from "@/stores/cart-stores";
 import { formatCurrency } from "@/utils/funtions/format-currency";
 
 import { Header } from "@/components/header";
-import { Input } from "@/components/input";
 import { Product } from "@/components/product";
 import { Button } from "@/components/button";
 import { Feather } from "@expo/vector-icons";
 import { LinkButton } from "@/components/link-button";
-import { useNavigation } from "expo-router";
+import { router } from "expo-router";
+import { useUserStore } from "@/stores/user-stores";
 
-
+const STORE_PHONE = null //!TODO Inserir telefone da loja ;
 
 export default function Cart() {
-  const [address, setAddress] = useState("");
   const cartStore = useCartStore();
-  const navigation = useNavigation();
+  const userStore = useUserStore();
+  const user = userStore.user;
 
   const total = formatCurrency(
     cartStore.products.reduce(
@@ -39,26 +38,33 @@ export default function Cart() {
   }
 
   function handleOrder() {
-    if (address.trim().length === 0) {
+    if (user.address.trim().length === 0) {
       return Alert.alert("Pedido", "Informe os dados de entrega.");
     }
 
     const products = cartStore.products
-      .map((product) => `\n ${product.quantity} ${product.title}`)
+      .map((product) => `\n${product.quantity}x ${product.title}`)
       .join("");
+    const complementInfo = user.complement ? ` - ${user.complement}` : "";
 
-    const mensage = `
-      NOVO PEDIDO
-    \n Entregar em: ${address}
+    const message = `
+🍔 NOVO PEDIDO 🍔
+\nEntrega para: ${user.name}
+Telefone para contato: ${user.phone}
+\nEntregar em:
+${user.CEP} - ${user.address} - ${user.number}
+${user.city} - ${user.neighborhood}${complementInfo}
+${products}
 
-    ${products}
-
-    \n Valor total: ${total}
-    `
+\nValor total: ${total}
+`;
 
     cartStore.clear();
+    STORE_PHONE ?  Linking.openURL(
+      `http://api.whatsapp.com/send?phone=${STORE_PHONE}&text=${message}`
+    ): '';
+    router.push("/");
     Alert.alert("Pedido", "Seu pedido foi realizado com sucesso!");
-    navigation.goBack();
   }
 
   return (
@@ -76,13 +82,6 @@ export default function Cart() {
                     onPress={() => handleProductRemove(product)}
                   />
                 ))}
-                <Input
-                  placeholder="Informe o endereço de entrega com rua, bairro, CEP, número e complemento..."
-                  onChangeText={setAddress}
-                  blurOnSubmit={true}
-                  onSubmitEditing={handleOrder}
-                  returnKeyType="next"
-                />
               </View>
             ) : (
               <Text className="font-body text-slate-400 text-center my-8">
@@ -101,15 +100,26 @@ export default function Cart() {
           </View>
         )}
 
-        {cartStore.products.length > 0 && (
+        {user.name.trim().length > 0 &&
+        user.email.trim().length > 0 &&
+        user.phone.trim().length > 0 &&
+        user.CEP.trim().length > 0 &&
+        cartStore.products.length > 0 &&
+        user.address.trim().length > 0 ? (
           <Button onPress={handleOrder}>
             <Button.Text>Enviar pedido</Button.Text>
             <Button.Icon>
               <Feather name="arrow-right-circle" size={20} />
             </Button.Icon>
           </Button>
+        ) : (
+          <Button onPress={() => router.push("/user")}>
+            <Button.Text>Preencher seus dados</Button.Text>
+            <Button.Icon>
+              <Feather name="user" size={20} />
+            </Button.Icon>
+          </Button>
         )}
-
         <LinkButton title="Voltar ao cardápio" href="/" />
       </View>
     </View>

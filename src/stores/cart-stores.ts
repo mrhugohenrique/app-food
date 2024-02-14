@@ -31,7 +31,6 @@ export const useCartStore = create(
         })),
 
       clear: () => set(() => ({ products: [] })),
-      
     }),
     {
       name: "app-food:cart",
